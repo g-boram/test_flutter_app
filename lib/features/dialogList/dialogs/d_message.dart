@@ -1,4 +1,4 @@
-import 'package:test_app/shared/widget/scaffold/center_dialog_scaffold.dart';
+import 'package:test_app/shared/widgets/scaffold/center_dialog_scaffold.dart';
 import 'package:test_app/data/simple_result.dart';
 import 'package:flutter/material.dart';
 import 'package:nav/dialog/dialog.dart';

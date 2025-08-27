@@ -1,8 +1,8 @@
 import 'package:test_app/core/common.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/widget/round_button_theme.dart';
-import '../../../shared/widget/w_round_button.dart';
+import '../../../shared/widgets/round_button_theme.dart';
+import '../../../shared/widgets/w_round_button.dart';
 
 class FavoriteFragment extends StatelessWidget {
   final bool isShowBackButton;

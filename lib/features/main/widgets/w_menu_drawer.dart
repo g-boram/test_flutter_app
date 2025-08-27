@@ -12,7 +12,7 @@ import 'package:test_app/features/dialogList/fragments/f_smaple_dialogs.dart';
 import '../../../core/common.dart';
 import '../../../core/language/language.dart';
 import '../../../shared/theme/theme_util.dart';
-import '../../../shared/widget/w_mode_switch.dart';
+import '../../../shared/widgets/w_mode_switch.dart';
 
 class MenuDrawer extends StatefulWidget {
   static const minHeightForScrollView = 380;

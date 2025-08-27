@@ -19,10 +19,10 @@ export 'dart/extension/snackbar_context_extension.dart';
 export '../shared/theme/color/abs_theme_colors.dart';
 export '../shared/theme/shadows/abs_theme_shadows.dart';
 export '../shared/util/async/flutter_async.dart';
-export '../shared/widget/w_empty_expanded.dart';
-export '../shared/widget/w_height_and_width.dart';
-export '../shared/widget/w_line.dart';
-export '../shared/widget/w_tap.dart';
+export '../shared/widgets/w_empty_expanded.dart';
+export '../shared/widgets/w_height_and_width.dart';
+export '../shared/widgets/w_line.dart';
+export '../shared/widgets/w_tap.dart';
 
 const defaultFontStyle = GoogleFonts.ptSerif;
 

@@ -1,9 +1,10 @@
 import 'package:test_app/core/common.dart';
 import 'package:test_app/shared/theme/custom_theme_app.dart';
+import 'package:test_app/shared/theme/custom_theme.dart';
 import 'package:test_app/features/main/screen/s_main.dart';
 import 'package:flutter/material.dart';
 
-import 'shared/theme/custom_theme.dart';
+
 
 class App extends StatefulWidget {
   static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();

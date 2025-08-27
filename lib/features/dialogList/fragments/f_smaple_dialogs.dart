@@ -1,6 +1,6 @@
 import 'package:test_app/core/common.dart';
-import 'package:test_app/shared/widget/round_button_theme.dart';
-import 'package:test_app/shared/widget/w_round_button.dart';
+import 'package:test_app/shared/widgets/round_button_theme.dart';
+import 'package:test_app/shared/widgets/w_round_button.dart';
 import 'package:test_app/features/dialogList/dialogs/d_message.dart';
 import 'package:flutter/material.dart';
 

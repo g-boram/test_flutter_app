@@ -1,6 +1,6 @@
 import 'package:test_app/core/common.dart';
 import 'package:flutter/material.dart';
-import 'package:test_app/shared/widget/scaffold/transparent_scaffold.dart';
+import 'package:test_app/shared/widgets/scaffold/transparent_scaffold.dart';
 
 class BottomDialogScaffold extends StatelessWidget {
   final Widget body;

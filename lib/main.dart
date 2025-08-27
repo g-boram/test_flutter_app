@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:media_store_plus/media_store_plus.dart';
 
 import 'app.dart';
 import 'core/data/preference/app_preferences.dart';
@@ -8,6 +11,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await AppPreferences.init();
+
+  if (Platform.isAndroid) {
+    await MediaStore.ensureInitialized();
+    MediaStore.appFolder = "MyApp"; // 갤러리 가상 폴더명
+  }
 
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ko')],

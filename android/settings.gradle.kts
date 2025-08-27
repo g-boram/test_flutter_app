@@ -19,7 +19,10 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    id("com.android.application") version "8.9.1" apply false
+
+    // ✅ Flutter 요구 충족: AGP/Kotlin 상향
+    id("com.android.application") version "8.6.1" apply false
+    id("com.android.library") version "8.6.1" apply false
     id("org.jetbrains.kotlin.android") version "2.1.0" apply false
 }
 
