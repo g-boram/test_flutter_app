@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../common/common.dart';
+import '../../../core/common.dart';
 import '../../simple_result.dart';
 
 class ApiError {
