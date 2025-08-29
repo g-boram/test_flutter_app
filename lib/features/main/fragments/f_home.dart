@@ -1,32 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/core/common.dart';
-import 'package:test_app/features/main/screen/s_home.dart';      // SHome = 컨텐츠 전용
-import 'package:test_app/features/main/screen/s_main.dart';      // MainScreen.of(...) 사용
+import 'package:test_app/shared/widgets/buttons/w_primary_button.dart';
+import 'package:test_app/shared/widgets/w_gap.dart';
 
-class HomeFragment extends StatelessWidget {
-  const HomeFragment({Key? key}) : super(key: key);
+import 'package:test_app/features/recoder/presentation/screen/s_camera_test.dart';
+import 'package:test_app/features/recoder/presentation/screen/s_video_test.dart';
+import 'package:test_app/features/recoder/presentation/screen/s_mic_test.dart';
+
+/// ✅ Scaffold/AppBar 없이 '본문'만 그리는 프래그먼트
+class HomeActionsFragment extends StatelessWidget {
+  const HomeActionsFragment({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.appColors.seedColor.getMaterialColorValues[100],
-      child: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () => MainScreen.of(context)?.openDrawer(),
-                  icon: const Icon(Icons.menu),
-                ),
-              ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(children: [
+          Expanded(
+            child: WPrimaryButton(
+              label: '사진 촬영 테스트 페이지',
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const CameraTestScreen()),
+              ),
             ),
-            const SizedBox(height: 12),
-            const SHome(),
-          ],
-        ),
-      ),
+          ),
+        ]),
+        const WGap.h(15),
+        Row(children: [
+          Expanded(
+            child: WPrimaryButton(
+              label: '동영상 촬영 테스트 페이지',
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const VideoTestScreen()),
+              ),
+            ),
+          ),
+        ]),
+        const WGap.h(15),
+        Row(children: [
+          Expanded(
+            child: WPrimaryButton(
+              label: '마이크 녹음 테스트 페이지',
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const MicTestScreen()),
+              ),
+            ),
+          ),
+        ]),
+      ],
     );
   }
 }

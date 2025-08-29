@@ -1,16 +1,15 @@
+import 'package:flutter/material.dart';
 import 'package:test_app/core/common.dart';
 import 'package:test_app/shared/widgets/round_button_theme.dart';
 import 'package:test_app/shared/widgets/w_round_button.dart';
 import 'package:test_app/features/dialogList/dialogs/d_message.dart';
-import 'package:flutter/material.dart';
 
 import '../dialogs/d_color_bottom.dart';
 import '../dialogs/d_confirm.dart';
 
-class SampleDialogs extends StatelessWidget {
-  const SampleDialogs({
-    Key? key,
-  }) : super(key: key);
+/// ✅ Scaffold/AppBar 없이 '본문'만 그리는 프래그먼트
+class SampleDialogsFragment extends StatelessWidget {
+  const SampleDialogsFragment({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +19,6 @@ class SampleDialogs extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              IconButton(
-                onPressed: () => openDrawer(context),
-                icon: const Icon(Icons.menu),
-              )
-            ],
-          ),
           const EmptyExpanded(),
           RoundButton(
             text: 'Snackbar 보이기',
@@ -46,27 +37,26 @@ class SampleDialogs extends StatelessWidget {
             onTap: showMessageDialog,
             theme: RoundButtonTheme.whiteWithBlueBorder,
           ),
-          const Height(20),
-          RoundButton(
-            text: '메뉴 보기',
-            onTap: () => openDrawer(context),
-            theme: RoundButtonTheme.blink,
-          ),
-          const EmptyExpanded()
+          const EmptyExpanded(),
         ],
       ),
     );
   }
 
-
   void showSnackbar(BuildContext context) {
-    context.showSnackbar('snackbar 입니다.',
-        extraButton: Tap(
-          onTap: () {
-            context.showErrorSnackbar('error');
-          },
-          child: '에러 보여주기 버튼'.text.white.size(13).make().centered().pSymmetric(h: 10, v: 5),
-        ));
+    context.showSnackbar(
+      'snackbar 입니다.',
+      extraButton: Tap(
+        onTap: () => context.showErrorSnackbar('error'),
+        child: '에러 보여주기 버튼'
+            .text
+            .white
+            .size(13)
+            .make()
+            .centered()
+            .pSymmetric(h: 10, v: 5),
+      ),
+    );
   }
 
   Future<void> showConfirmDialog(BuildContext context) async {
@@ -97,9 +87,5 @@ class SampleDialogs extends StatelessWidget {
   Future<void> showMessageDialog() async {
     final result = await MessageDialog("안녕하세요").show();
     debugPrint(result.toString());
-  }
-
-  void openDrawer(BuildContext context) {
-    Scaffold.of(context).openDrawer();
   }
 }

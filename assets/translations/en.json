@@ -1,6 +1,15 @@
 {
-  "alertList": "Alert List",
-  "sample_dialogs": "Sample Dialogs",
+  "title": {
+    "home": "Home",
+    "alertList": "Alert List",
+    "sample_dialogs": "Sample Dialogs",
+    "study_flutter": "Study Flutter",
+    "new_screen" : "new Screen"
+  },
+  "desc": {
+
+  },
+  "refresh": "Refresh",
   "close": "Close",
   "done": "Done",
   "cancel": "Cancel"
