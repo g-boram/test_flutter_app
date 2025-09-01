@@ -1,12 +1,10 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import 'package:test_app/features/dialogList/screen/s_dialog.dart';
-import 'package:test_app/features/main/screen/s_home.dart';
 import 'package:test_app/features/newScreen/screen/s_newScreen.dart';
 
 import '../../../core/common.dart';
@@ -107,9 +105,9 @@ class MenuDrawer extends StatelessWidget {
                 child: NavigationDrawer(
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (i) {
-                    // ✅ 1) 드로어 먼저 닫고
+
                     _closeDrawer();
-                    // ✅ 2) 다음 프레임에 push (겹치는 애니메이션/컨텍스트 이슈 방지)
+
                     final page = entries[i].builder();
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       onNavigate(page);
@@ -148,6 +146,8 @@ class MenuDrawer extends StatelessWidget {
                               value: context.isDarkMode,
                               onChanged: (_) => ThemeUtil.toggleTheme(rootCtx),
                               height: 30,
+                              activeThumbImage: Image.asset('$basePath/darkmode/moon.png'),
+                              inactiveThumbImage: Image.asset('$basePath/darkmode/sun.png'),
                               activeThumbColor: Colors.transparent,
                               inactiveThumbColor: Colors.transparent,
                             ),
@@ -194,7 +194,7 @@ class _LanguagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ✅ 현재 로케일을 루트에서 읽어와 드롭다운 value로 사용
+
     final currentLocale = rootCtx.locale;
     final currentLang = LanguageX.fromLocale(currentLocale);
 
@@ -216,8 +216,6 @@ class _LanguagePicker extends StatelessWidget {
               DropdownButton<String>(
                 items: [
                   _menu(context, currentLang),
-                  // 하나만 고르게 하던 기존 UX를 유지하려면 아래처럼 1개만 대안으로,
-                  // 여러 언어 모두 보여주려면 for (final l in Language.values) 로 바꾸세요.
                   _menu(
                     context,
                     Language.values.firstWhere((e) => e != currentLang, orElse: () => currentLang),
@@ -226,7 +224,7 @@ class _LanguagePicker extends StatelessWidget {
                 onChanged: (value) async {
                   if (value == null) return;
                   final chosen = Language.find(value.toLowerCase());
-                  // ✅ 루트 컨텍스트로 setLocale → 앱 전체 재빌드
+                  // 루트 컨텍스트로 setLocale → 앱 전체 재빌드
                   await rootCtx.setLocale(chosen.locale);
                   // 즉시 반영 보려면 드로어 닫기도 가능:
                   // Navigator.of(context).maybePop();
@@ -277,7 +275,7 @@ extension LanguageX on Language {
     // 프로젝트의 Language 정의에 맞춰 보정
     return Language.values.firstWhere(
           (e) => e.locale.languageCode.toLowerCase() == code,
-      orElse: () => Language.english, // 기본값은 앱 정책에 맞게
+      orElse: () => Language.english,
     );
   }
 }

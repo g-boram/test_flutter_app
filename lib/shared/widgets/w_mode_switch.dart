@@ -41,7 +41,7 @@ class _ModeSwitchState extends State<ModeSwitch> {
               .size(14)
               .color(widget.value ? context.appColors.inActivate : context.appColors.activate)
               .bold
-              .makeWithDefaultFont(),
+              .make(),
           const Width(5),
           SizedBox(
             height: widget.height,
@@ -90,7 +90,7 @@ class _ModeSwitchState extends State<ModeSwitch> {
               .size(14)
               .color(widget.value ? context.appColors.activate : context.appColors.inActivate)
               .bold
-              .makeWithDefaultFont(),
+              .make(),
         ],
       ),
     );

@@ -76,7 +76,7 @@ class TextBadge extends StatelessWidget {
                 .minFontSize(4)
                 .medium
                 .color(textColor)
-                .makeWithDefaultFont(),
+                .make(),
             if (rightWidget != null) rightWidget!
           ],
         ));
