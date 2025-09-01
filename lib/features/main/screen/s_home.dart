@@ -5,12 +5,13 @@ import 'package:test_app/shared/layout/app_page.dart';
 import 'package:test_app/core/common.dart';
 
 
-/// ✅ 스크린은 레이아웃 전용: AppPage + Fragment 조합
+/// 스크린은 레이아웃 전용: AppPage + Fragment 조합
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final _ = context.locale;
     return AppPage(
       title: 'title.home'.tr(), // AppBar: 루트면 햄버거, push면 뒤로가기 자동 처리
       actions: [
@@ -22,10 +23,8 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ],
-      // 배경/패딩 기본값은 AppPage가 처리함 (context.appColors.seedColor 계열)
       child: ListView(
         children: const [
-          // 필요하면 헤더/배너 등 Fragment를 더 추가해도 됨
           SizedBox(height: 12),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 4),

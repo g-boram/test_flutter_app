@@ -1,10 +1,8 @@
 {
   "title": {
     "home": "Home",
-    "alertList": "Alert List",
-    "sample_dialogs": "Sample Dialogs",
-    "study_flutter": "Study Flutter",
-    "new_screen" : "new Screen"
+    "new_screen" : "new Screen",
+    "sample_dialogs": "Sample Dialogs"
   },
   "desc": {
 

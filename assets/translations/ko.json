@@ -1,10 +1,8 @@
 {
   "title" : {
     "home": "홈",
-    "alertList": "알림창 리스트",
-    "sample_dialogs": "다이얼로그 샘플",
-    "study_flutter": "플루터 공부하기",
-    "new_screen" : "새로운 페이지 예제"
+    "new_screen" : "새로운 페이지",
+    "sample_dialogs": "다이얼 로그 샘플"
   },
   "desc": {
 

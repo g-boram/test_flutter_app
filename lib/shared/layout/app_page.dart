@@ -1,10 +1,11 @@
+// lib/shared/layout/app_page.dart
 import 'package:flutter/material.dart';
 import 'package:test_app/features/main/screen/s_main.dart';
 import 'package:test_app/core/common.dart';
 
 PreferredSizeWidget smartAppBar(
     BuildContext context, {
-      required String title,
+      required String titleText,
       List<Widget>? actions,
     }) {
   final canPop = Navigator.of(context).canPop();
@@ -17,11 +18,10 @@ PreferredSizeWidget smartAppBar(
       onPressed: () => MainScreen.of(context)?.openDrawer(),
       tooltip: 'Open menu',
     ),
-    title: Text(title),
+    title: Text(titleText),
     actions: actions,
   );
 }
-
 
 class AppPage extends StatelessWidget {
   const AppPage({
@@ -47,9 +47,11 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final bg = backgroundColor ?? context.appColors.seedColor.getMaterialColorValues[100];
 
+    final titleText = title;
+
     return Scaffold(
       appBar: bottom == null
-          ? smartAppBar(context, title: title, actions: actions)
+          ? smartAppBar(context, titleText: titleText, actions: actions)
           : AppBar(
         automaticallyImplyLeading: false,
         leading: Navigator.of(context).canPop()
@@ -58,7 +60,7 @@ class AppPage extends StatelessWidget {
           icon: const Icon(Icons.menu),
           onPressed: () => MainScreen.of(context)?.openDrawer(),
         ),
-        title: Text(title),
+        title: Text(titleText),
         actions: actions,
         bottom: bottom,
       ),

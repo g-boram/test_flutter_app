@@ -6,7 +6,6 @@ class NewScreenFragments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 필요 시 ViewModel/Controller 주입/리스닝은 여기서!
     return ListView(
       padding: const EdgeInsets.all(8),
       children: [
@@ -15,7 +14,6 @@ class NewScreenFragments extends StatelessWidget {
           child: ListTile(
             leading: const Icon(Icons.info_outline),
             title: Text('title.new_screen'.tr()),
-            subtitle: Text('desc.new_screen'.tr()),
           ),
         ),
         const Height(12),

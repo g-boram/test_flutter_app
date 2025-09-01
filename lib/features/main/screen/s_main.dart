@@ -1,15 +1,17 @@
-// s_main.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:test_app/features/main/tab/tab_item.dart';
-import 'package:test_app/features/main/tab/tab_navigator.dart';
+import 'package:test_app/features/main/bottomTab/tab_item.dart';
+import 'package:test_app/features/main/bottomTab/tab_navigator.dart';
+import 'package:test_app/features/main/widgets/w_menu_drawer.dart';
+
 import '../../../core/common.dart';
-import '../widgets/w_menu_drawer.dart'; // 아래 3) 의 MenuDrawer
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
+
   static MainScreenState? of(BuildContext context) =>
       context.findAncestorStateOfType<MainScreenState>();
+
   @override
   State<MainScreen> createState() => MainScreenState();
 }
@@ -18,7 +20,7 @@ class MainScreenState extends State<MainScreen> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   TabItem _currentTab = TabItem.home;
-  final tabs = [TabItem.home, TabItem.favorite];
+  final tabs = [TabItem.home, TabItem.new_screen];
   final List<GlobalKey<NavigatorState>> navigatorKeys = [];
 
   int get _currentIndex => tabs.indexOf(_currentTab);
@@ -71,23 +73,26 @@ class MainScreenState extends State<MainScreen> {
       child: Scaffold(
         key: scaffoldKey,
         extendBody: extendBody,
+
+        // 왼쪽 사이드바 정의
         drawer: MenuDrawer(
-          selectedIndex: _currentIndex,
+          selectedIndex: _currentIndex, // 하이라이트 인덱스
           onNavigate: (page) {
-            // ✅ 드로어 닫기 책임은 여기서만
-            scaffoldKey.currentState?.closeDrawer();
-            // ✅ 닫힌 다음 프레임에 현재 탭 네비로 push
+            // 여기서는 굳이 closeDrawer 안 해도 됨(드로어 내부에서 닫음)
             WidgetsBinding.instance.addPostFrameCallback((_) {
               pushOnCurrentTab(page);
             });
           },
         ),
+
         body: Container(
           color: context.appColors.seedColor.getMaterialColorValues[200],
           padding: EdgeInsets.only(
-              bottom: extendBody ? 60 - bottomNavigationBarBorderRadius : 0),
+            bottom: extendBody ? 60 - bottomNavigationBarBorderRadius : 0,
+          ),
           child: SafeArea(bottom: !extendBody, child: pages),
         ),
+
         bottomNavigationBar: _buildBottomNavigationBar(context),
       ),
     );
@@ -104,7 +109,7 @@ class MainScreenState extends State<MainScreen> {
         Offstage(
           offstage: _currentIndex != i,
           child: TabNavigator(
-            navigatorKey: navigatorKeys[i],   // ✅ 명령형 네비게이터 키 연결
+            navigatorKey: navigatorKeys[i],
             tabItem: tabs[i],
           ),
         ),
@@ -163,6 +168,7 @@ class MainScreenState extends State<MainScreen> {
   void _handleOnTapNavigationBarItem(int index) {
     if (tabs[index] == _currentTab) {
       final nav = currentTabNavigatorKey;
+      // 같은 탭을 다시 탭 → 루트까지 pop (스크롤-투-탑은 여기서 추가도 가능)
       while (nav.currentState?.canPop() == true) {
         nav.currentState!.pop();
       }

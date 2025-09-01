@@ -1,3 +1,4 @@
+// lib/features/main/widgets/w_menu_drawer.dart
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 
 import 'package:test_app/features/dialogList/screen/s_dialog.dart';
-import 'package:test_app/features/main/screen/s_home.dart';
 import 'package:test_app/features/newScreen/screen/s_newScreen.dart';
 
 import '../../../core/common.dart';
@@ -34,6 +34,7 @@ class MenuDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bg = context.colors.background;
+
     // 이동할 스크린 리스트
     final entries = <_MenuEntry>[
       _MenuEntry(
@@ -48,10 +49,10 @@ class MenuDrawer extends StatelessWidget {
       ),
     ];
 
-    // 🔑 앱 루트 컨텍스트 (EasyLocalization/Theme가 붙어있는 상위)
+    // 🔑 루트 컨텍스트(EasyLocalization/Theme 적용 트리)
     final rootCtx = Navigator.of(context, rootNavigator: true).context;
 
-    // 공통: 드로어 닫기 함수
+    // 공통: 드로어 닫기
     void _closeDrawer() {
       final scaffold = Scaffold.maybeOf(context);
       if (scaffold?.isDrawerOpen == true) {
@@ -95,8 +96,8 @@ class MenuDrawer extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       icon: const Icon(EvaIcons.close),
-                      tooltip: 'close'.tr(),
-                      onPressed: _closeDrawer, // ← 안전하게 닫기
+                      tooltip: 'close'.tr(context: rootCtx), // ✅ 루트 컨텍스트로 번역
+                      onPressed: _closeDrawer,
                     ),
                   ],
                 ),
@@ -107,9 +108,9 @@ class MenuDrawer extends StatelessWidget {
                 child: NavigationDrawer(
                   selectedIndex: selectedIndex,
                   onDestinationSelected: (i) {
-                    // ✅ 1) 드로어 먼저 닫고
+                    // 1) 드로어 먼저 닫고
                     _closeDrawer();
-                    // ✅ 2) 다음 프레임에 push (겹치는 애니메이션/컨텍스트 이슈 방지)
+                    // 2) 다음 프레임에 push (겹치는 애니메이션/컨텍스트 이슈 방지)
                     final page = entries[i].builder();
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       onNavigate(page);
@@ -122,7 +123,8 @@ class MenuDrawer extends StatelessWidget {
                         icon: Icon(e.icon),
                         selectedIcon:
                         Icon(e.icon, color: Theme.of(context).colorScheme.primary),
-                        label: Text(e.titleKey.tr()),
+                        // ✅ 루트 컨텍스트로 번역(드로어 트리 분리 이슈 방지)
+                        label: Text(e.titleKey.tr(context: rootCtx)),
                       ),
                   ],
                 ),
@@ -158,7 +160,7 @@ class MenuDrawer extends StatelessWidget {
                     const SizedBox(height: 8),
 
                     // 다국어 선택 (루트 컨텍스트로 setLocale)
-                    _LanguagePicker(rootCtx: rootCtx),
+                    _LanguagePicker(rootCtx: rootCtx, onAfterChange: _closeDrawer),
 
                     const SizedBox(height: 8),
 
@@ -189,8 +191,9 @@ class MenuDrawer extends StatelessWidget {
 
 /// 언어 선택 영역 (EasyLocalization 동기화)
 class _LanguagePicker extends StatelessWidget {
-  const _LanguagePicker({required this.rootCtx});
+  const _LanguagePicker({required this.rootCtx, required this.onAfterChange});
   final BuildContext rootCtx;
+  final VoidCallback onAfterChange;
 
   @override
   Widget build(BuildContext context) {
@@ -216,11 +219,13 @@ class _LanguagePicker extends StatelessWidget {
               DropdownButton<String>(
                 items: [
                   _menu(context, currentLang),
-                  // 하나만 고르게 하던 기존 UX를 유지하려면 아래처럼 1개만 대안으로,
-                  // 여러 언어 모두 보여주려면 for (final l in Language.values) 로 바꾸세요.
+                  // 기존 UX 유지: 현재 언어 외 1개만 노출
                   _menu(
                     context,
-                    Language.values.firstWhere((e) => e != currentLang, orElse: () => currentLang),
+                    Language.values.firstWhere(
+                          (e) => e != currentLang,
+                      orElse: () => currentLang,
+                    ),
                   ),
                 ],
                 onChanged: (value) async {
@@ -228,8 +233,8 @@ class _LanguagePicker extends StatelessWidget {
                   final chosen = Language.find(value.toLowerCase());
                   // ✅ 루트 컨텍스트로 setLocale → 앱 전체 재빌드
                   await rootCtx.setLocale(chosen.locale);
-                  // 즉시 반영 보려면 드로어 닫기도 가능:
-                  // Navigator.of(context).maybePop();
+                  // ✅ 즉시 반영 위해 드로어 닫기
+                  onAfterChange();
                 },
                 value: describeEnum(currentLang).capitalizeFirst,
                 underline: const SizedBox.shrink(),
@@ -274,10 +279,9 @@ class _LanguagePicker extends StatelessWidget {
 extension LanguageX on Language {
   static Language fromLocale(Locale locale) {
     final code = locale.languageCode.toLowerCase();
-    // 프로젝트의 Language 정의에 맞춰 보정
     return Language.values.firstWhere(
           (e) => e.locale.languageCode.toLowerCase() == code,
-      orElse: () => Language.english, // 기본값은 앱 정책에 맞게
+      orElse: () => Language.english,
     );
   }
 }
