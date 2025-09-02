@@ -45,7 +45,7 @@ class AppPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = backgroundColor ?? context.appColors.seedColor.getMaterialColorValues[100];
+    final bg = backgroundColor ?? context.appColors.seedColor;
 
     final titleText = title;
 

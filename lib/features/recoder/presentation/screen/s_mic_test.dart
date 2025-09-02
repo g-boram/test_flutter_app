@@ -11,8 +11,8 @@ import 'package:test_app/features/recoder/fragments/f_recording_indicator.dart';
 
 import '../../../../core/permissions/permission_service.dart';
 import '../../../../core/media/media_saver_service.dart';
-import '../../../../shared/widgets/buttons/w_primary_button.dart';
-import '../../../../shared/widgets/w_gap.dart';
+import '../../../../shared/widgets/buttons/w_base_button.dart';
+import '../../../../shared/widgets/primitives/w_gap.dart';
 
 class MicTestScreen extends StatefulWidget {
   const MicTestScreen({super.key});
@@ -238,14 +238,14 @@ class _MicTestScreenState extends State<MicTestScreen> {
             // --- 녹음 컨트롤
             Row(children: [
               Expanded(
-                child: WPrimaryButton(
+                child: BaseButton(
                   label: '녹음 시작',
                   onPressed: _isRecording ? null : _start,
                 ),
               ),
               const WGap.w(8),
               Expanded(
-                child: WPrimaryButton(
+                child: BaseButton(
                   label: '녹음 종료',
                   onPressed: _isRecording ? _stop : null,
                 ),

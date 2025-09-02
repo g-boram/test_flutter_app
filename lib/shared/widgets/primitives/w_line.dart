@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/common.dart';
+import '../../../core/common.dart';
 
 class Line extends StatelessWidget {
   const Line({

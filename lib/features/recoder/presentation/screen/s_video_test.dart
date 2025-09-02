@@ -11,8 +11,8 @@ import 'package:test_app/features/recoder/fragments/f_video_player_dialog.dart';
 import 'package:test_app/features/recoder/fragments/f_video_strip.dart';
 
 import '../../../../core/permissions/permission_service.dart';
-import '../../../../shared/widgets/w_camera_box.dart';
-import '../../../../shared/widgets/w_gap.dart';
+import '../widgets/w_camera_box.dart';
+import '../../../../shared/widgets/primitives/w_gap.dart';
 
 
 class VideoTestScreen extends StatefulWidget {

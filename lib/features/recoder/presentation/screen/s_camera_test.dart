@@ -7,9 +7,9 @@ import 'package:media_store_plus/media_store_plus.dart';
 import 'package:photo_manager/photo_manager.dart';
 
 import '../../../../core/permissions/permission_service.dart';
-import '../../../../shared/widgets/w_gap.dart';
-import '../../../../shared/widgets/w_camera_box.dart';
-import '../../../../shared/widgets/buttons/w_primary_button.dart';
+import '../../../../shared/widgets/primitives/w_gap.dart';
+import '../widgets/w_camera_box.dart';
+import '../../../../shared/widgets/buttons/w_base_button.dart';
 
 import '../../fragments/f_photo_viewer.dart';
 import '../../fragments/f_photo_strip.dart';
@@ -201,7 +201,7 @@ class _CameraTestScreenState extends State<CameraTestScreen>
             const WGap.h(12),
 
             // ✅ 사진만 촬영
-            WPrimaryButton(
+            BaseButton(
               label: '📸 사진 촬영',
               onPressed: _takePhoto,
             ),

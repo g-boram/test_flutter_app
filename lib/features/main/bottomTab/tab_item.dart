@@ -1,4 +1,4 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -6,8 +6,8 @@ enum TabItem { home, new_screen }
 
 extension TabItemX on TabItem {
   IconData get icon => switch (this) {
-    TabItem.home => EvaIcons.homeOutline,
-    TabItem.new_screen => EvaIcons.heartOutline,
+    TabItem.home => Icons.home,
+    TabItem.new_screen => Icons.check,
   };
 
   /// 다국어 처리 키 입력

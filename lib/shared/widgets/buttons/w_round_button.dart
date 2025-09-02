@@ -1,8 +1,8 @@
 import 'package:test_app/core/common.dart';
-import 'package:test_app/shared/widgets/round_button_theme.dart';
+import 'package:test_app/shared/widgets/buttons/round_button_theme.dart';
 import 'package:flutter/material.dart';
 
-import 'mixin/wm_refresh_every_second.dart';
+import '../mixin/wm_refresh_every_second.dart';
 
 class RoundButton extends StatefulWidget {
   final String text;

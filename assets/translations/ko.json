@@ -2,6 +2,8 @@
   "title" : {
     "home": "홈",
     "new_screen" : "새로운 페이지",
+    "recoder" : "촬영/녹음 테스트 페이지",
+    "base_text": "텍스트 위젯 예시",
     "sample_dialogs": "다이얼 로그 샘플"
   },
   "desc": {

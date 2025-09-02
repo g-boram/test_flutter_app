@@ -2,6 +2,8 @@
   "title": {
     "home": "Home",
     "new_screen" : "new Screen",
+    "recoder" : "Recoder Test Screen",
+    "base_text": "baseText Example",
     "sample_dialogs": "Sample Dialogs"
   },
   "desc": {

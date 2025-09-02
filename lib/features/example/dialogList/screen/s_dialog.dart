@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_utils/src/extensions/string_extensions.dart';
 import 'package:test_app/core/common.dart';
-import 'package:test_app/features/dialogList/fragments/f_smaple_dialogs.dart';
+import 'package:test_app/features/example/dialogList/fragments/f_smaple_dialogs.dart';
 import 'package:test_app/shared/layout/app_page.dart';
 
 class DialogsScreen extends StatelessWidget {

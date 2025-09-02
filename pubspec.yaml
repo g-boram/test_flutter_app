@@ -31,15 +31,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   #splash creator
   flutter_native_splash: ^2.3.0
 
-  #dart
-  meta: ^1.4.0
-  quiver: ^3.2.1
-  equatable: ^2.0.5
-
+  # camera & audio
   camera: ^0.11.0          # 카메라 미리보기/동영상 녹화
   video_player: ^2.9.0     # 동영상 재생
   video_thumbnail: ^0.5.6   # 비디오 미리보기
@@ -50,34 +45,15 @@ dependencies:
   permission_handler: ^11.3.1 # 권한 확인 핸들러
   path_provider: ^2.1.0     # 디바이스 경로 헬퍼
 
-
-  #util
-  velocity_x: ^4.1.2
-
-  #data
-
   #architecture
   get: ^4.6.5
 
   #ui - resource
-  eva_icons_flutter: ^3.1.0
   google_fonts: ^4.0.4
   easy_localization: ^3.0.2   # 다국어 처리
 
   #ui - widget
   nav: ^1.3.9
-  simple_shadow: ^0.3.1
-  after_layout: ^1.2.0
-
-  #ui - util
-
-  #network
-#  dio: ^5.0.0
-#  retrofit: ^4.0.1
-#  freezed: ^2.3.4
-#  freezed_annotation: ^2.2.0
-#  json_annotation: ^4.8.0
-#  flutter_keyboard_visibility: ^6.0.0
 
 
 dependency_overrides:

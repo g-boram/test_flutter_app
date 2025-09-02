@@ -1,17 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:test_app/features/newScreen/fragments/f_newScreen.dart';
+import 'package:test_app/features/example/baseText/fragments/f_baseText.dart';
 import 'package:test_app/shared/layout/app_page.dart';
-import 'package:test_app/core/common.dart';
 
-
-class NewScreen extends StatelessWidget {
-  const NewScreen({super.key});
+class BaseTextScreen extends StatelessWidget {
+  const BaseTextScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final _ = context.locale;
     return AppPage(
-      title: 'title.new_screen'.tr(),
+      title: 'title.baseText'.tr(),
       actions: [
         IconButton(
           tooltip: 'refresh'.tr(),
@@ -19,8 +18,7 @@ class NewScreen extends StatelessWidget {
           onPressed: () {},
         ),
       ],
-      // 프레그먼트(기능) 조각들을 import해서 구현
-      child: const NewScreenFragments(),
+      child: const BaseTextShowcase(),
     );
   }
 }

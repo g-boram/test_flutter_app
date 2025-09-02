@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/widgets/buttons/w_primary_button.dart';
-import '../../../../shared/widgets/w_gap.dart';
+import '../../../../shared/widgets/buttons/w_base_button.dart';
+import '../../../shared/widgets/primitives/w_gap.dart';
 
 /// 영상 녹화 컨트롤(⏺ 시작 / ⏹ 종료)
 class FVideoControls extends StatelessWidget {
@@ -19,14 +19,14 @@ class FVideoControls extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       Expanded(
-        child: WPrimaryButton(
+        child: BaseButton(
           label: '⏺ 영상 시작',
           onPressed: isRecording ? null : onStart,
         ),
       ),
       const WGap.w(8),
       Expanded(
-        child: WPrimaryButton(
+        child: BaseButton(
           label: '⏹ 영상 종료',
           onPressed: isRecording ? onStop : null,
         ),

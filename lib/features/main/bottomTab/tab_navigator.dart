@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/features/main/bottomTab/tab_item.dart';
 import 'package:test_app/features/main/screen/s_home.dart';
-import 'package:test_app/features/newScreen/screen/s_newScreen.dart';
+import 'package:test_app/features/example/newScreen/screen/s_newScreen.dart';
 
 class TabNavigator extends StatelessWidget {
   const TabNavigator({

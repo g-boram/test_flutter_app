@@ -86,7 +86,7 @@ class MainScreenState extends State<MainScreen> {
         ),
 
         body: Container(
-          color: context.appColors.seedColor.getMaterialColorValues[200],
+          color: context.appColors.seedColor,
           padding: EdgeInsets.only(
             bottom: extendBody ? 60 - bottomNavigationBarBorderRadius : 0,
           ),

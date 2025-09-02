@@ -1,11 +1,10 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/string_extensions.dart';
-import 'package:simple_shadow/simple_shadow.dart';
+import 'package:test_app/features/example/baseText/fragments/f_baseText.dart';
 
-import 'package:test_app/features/dialogList/screen/s_dialog.dart';
-import 'package:test_app/features/newScreen/screen/s_newScreen.dart';
+import 'package:test_app/features/example/dialogList/screen/s_dialog.dart';
+import 'package:test_app/features/recoder/presentation/screen/s_move_recoder.dart';
 
 import '../../../core/common.dart';
 import '../../../core/language/language.dart';
@@ -31,18 +30,23 @@ class MenuDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = context.colors.background;
+    final bg = context.appColors.seedColor;
     // 이동할 스크린 리스트
     final entries = <_MenuEntry>[
       _MenuEntry(
-        icon: EvaIcons.messageSquareOutline,
+        icon: Icons.message_outlined,
         titleKey: 'title.sample_dialogs',
         builder: () => const DialogsScreen(),
       ),
       _MenuEntry(
-        icon: EvaIcons.bookOutline,
-        titleKey: 'title.new_screen',
-        builder: () => const NewScreen(),
+        icon: Icons.paste,
+        titleKey: 'title.recoder',
+        builder: () => const MoveRecoderScreen(),
+      ),
+      _MenuEntry(
+        icon: Icons.text_fields,
+        titleKey: 'title.base_text',
+        builder: () => const BaseTextShowcase(),
       ),
     ];
 
@@ -92,7 +96,7 @@ class MenuDrawer extends StatelessWidget {
                     ),
                     const Spacer(),
                     IconButton(
-                      icon: const Icon(EvaIcons.close),
+                      icon: const Icon(Icons.close),
                       tooltip: 'close'.tr(),
                       onPressed: _closeDrawer, // ← 안전하게 닫기
                     ),
@@ -139,15 +143,15 @@ class MenuDrawer extends StatelessWidget {
                       cursor: SystemMouseCursors.click,
                       child: Row(
                         children: [
-                          const Icon(EvaIcons.moonOutline, size: 18),
+                          const Icon(Icons.star_border, size: 18),
                           const SizedBox(width: 8),
                           Expanded(
                             child: ModeSwitch(
-                              value: context.isDarkMode,
+                              value: Theme.of(rootCtx).brightness == Brightness.dark,
                               onChanged: (_) => ThemeUtil.toggleTheme(rootCtx),
                               height: 30,
-                              activeThumbImage: Image.asset('$basePath/darkmode/moon.png'),
-                              inactiveThumbImage: Image.asset('$basePath/darkmode/sun.png'),
+                              activeThumb: Image.asset('$basePath/darkmode/moon.png', fit: BoxFit.cover),
+                              inactiveThumb: Image.asset('$basePath/darkmode/sun.png', fit: BoxFit.cover),
                               activeThumbColor: Colors.transparent,
                               inactiveThumbColor: Colors.transparent,
                             ),
@@ -246,7 +250,6 @@ class _LanguagePicker extends StatelessWidget {
       value: describeEnum(language).capitalizeFirst,
       child: Row(
         children: [
-          _flag(language.flagPath),
           const SizedBox(width: 8),
           Text(
             describeEnum(language).capitalizeFirst!,
@@ -257,15 +260,6 @@ class _LanguagePicker extends StatelessWidget {
     );
   }
 
-  Widget _flag(String path) {
-    return SimpleShadow(
-      opacity: 0.5,
-      color: Colors.grey,
-      offset: const Offset(2, 2),
-      sigma: 2,
-      child: Image.asset(path, width: 20),
-    );
-  }
 }
 
 /// Language 유틸 (현재 로케일 → Language enum 역매핑)

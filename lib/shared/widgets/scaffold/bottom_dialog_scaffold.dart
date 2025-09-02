@@ -15,7 +15,7 @@ class BottomDialogScaffold extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.only(top: 20, bottom: 20, right: 15, left: 15),
           decoration: BoxDecoration(
-              color: context.backgroundColor,
+              color: context.appColors.seedColor,
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(15), topRight: Radius.circular(15))),
           child: Column(
