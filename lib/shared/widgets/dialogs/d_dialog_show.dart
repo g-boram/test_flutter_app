@@ -90,7 +90,7 @@ Future<bool> showConfirmDialog(
       String okText = 'OK',
       String cancelText = 'Cancel',
       bool destructive = false,
-      DialogPosition position = DialogPosition.center,
+      DialogPosition position = DialogPosition.center, required String confirmText,
     }) async {
   final result = await showAppDialog<bool>(
     context,

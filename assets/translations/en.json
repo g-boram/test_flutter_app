@@ -3,7 +3,10 @@
     "title":"kiosk"
   },
   "home": {
-    "title":"Home"
+    "title":"Home",
+    "attendance": "QR Check",
+    "notice": "Notice",
+    "help": "Help"
   },
   "check_in": {
     "title": "Check In"

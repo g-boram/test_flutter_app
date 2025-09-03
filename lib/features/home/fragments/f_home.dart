@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:test_app/shared/widgets/dialogs/d_baseDialog.dart';
-import 'package:test_app/shared/widgets/dialogs/d_confirmDialog.dart';
 import 'package:test_app/shared/widgets/dialogs/d_infoDialog.dart';
+import 'package:test_app/shared/widgets/text/w_base_text.dart';
+
+import 'package:test_app/core/common.dart';
 
 // 기능 이동 (출석)
 import '../../attendance/screen/s_checkin.dart';
 
-// 공통 버튼/다이얼로그
-import '../../../shared/widgets/buttons/w_cardButton.dart';        // lib/shared/widgets/buttons/w_cardButton.dart
-import '../../../shared/widgets/buttons/w_baseButton.dart';        // lib/shared/widgets/buttons/w_baseButton.dart
 
 
 class HomeFragment extends StatefulWidget {
@@ -205,7 +204,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 child: BaseButton(
                   label: 'showInfoDialog',
                   variant: BaseBtnVariant.filled,
-                  onPressed: () => showInfoDialog(
+                  onPressed: () => InfoDialog.show(
                     context,
                     title: '안내',
                     message: '이것은 공통 Info 다이얼로그입니다.',
@@ -226,6 +225,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                       context,
                       title: '확인',
                       message: '이 작업을 진행할까요?',
+                      confirmText: '성공하였습니다.',
                     );
                     if (!mounted) return;
                     _toast(context, ok == true ? '진행' : '취소');
@@ -290,6 +290,23 @@ class _HomeFragmentState extends State<HomeFragment> {
         ),
 
         const SizedBox(height: 24),
+        const Divider(height: 1),
+
+        // 4) 공통 텍스트 사용 예시
+        const _SectionTitle(title: 'Text Playground'),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 기본: 키로 번역됨 (isKey 생략 = true)
+            AppText.title('app.title'),
+            AppText.subtitle('home.title', muted: true),
+
+            // 평문 그대로 표시하고 싶을 때만 isKey: false
+            AppText.title('교실 키오스크', isKey: false),
+            AppText.body('버전 1.0.0', isKey: false),
+          ],
+        )
+
       ],
     );
   }

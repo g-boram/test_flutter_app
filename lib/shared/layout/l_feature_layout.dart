@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import '../widgets/setting/w_locale_menu_action.dart';
 
 class FeatureLayout extends StatelessWidget {
   final String titleKey;                 // i18n key 또는 평문
@@ -10,6 +11,8 @@ class FeatureLayout extends StatelessWidget {
   final bool? showBackButton;            // null=자동(Navigator.canPop), true/false로 강제 가능
   final VoidCallback? onBack;            // 커스텀 뒤로가기 핸들러(옵션)
   final PreferredSizeWidget? bottom;     // (옵션) TabBar 등 AppBar bottom에 꽂기
+  final bool showLocaleToggle;        // 기본 true
+  final List<Locale>? localeList;     // 특정 순서/언어 제한 시
 
   const FeatureLayout({
     super.key,
@@ -21,6 +24,8 @@ class FeatureLayout extends StatelessWidget {
     this.showBackButton, // null이면 자동
     this.onBack,
     this.bottom,
+    this.showLocaleToggle = true,     // 전역 토글 기본 ON
+    this.localeList,
   });
 
   @override
@@ -40,8 +45,19 @@ class FeatureLayout extends StatelessWidget {
           tooltip: MaterialLocalizations.of(context).backButtonTooltip,
         )
             : null,
-        title: Text(t, overflow: TextOverflow.ellipsis),
-        actions: actions,
+        // title: Text(t, overflow: TextOverflow.ellipsis),
+        actions: const [
+          LocaleMenuAction(
+            // locales: [Locale('ko'), Locale('en')], // 순서 고정하고 싶을 때
+            variant: LocaleActionVariant.filled, // filled | tonal | outlined | text
+            showIcon: false,
+            showFlag: true,
+            showCode: true,
+            showLabel: false,
+            compact: false,
+            showSnackBar: true,
+          ),
+        ],
         bottom: bottom, // 필요하면 TabBar 등 부착
       ),
       body: SafeArea(

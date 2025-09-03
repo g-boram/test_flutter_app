@@ -3,7 +3,10 @@
     "title":"키오스크"
   },
   "home": {
-    "title":"홈"
+    "title":"홈",
+    "attendance": "큐알 체크",
+    "notice": "공지 사항",
+    "help": "도움말"
   },
   "check_in": {
     "title": "출석 체크"
