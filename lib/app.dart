@@ -1,86 +1,74 @@
-import 'package:nav/nav.dart';
-import 'package:test_app/core/common.dart';
-import 'package:test_app/shared/theme/custom_theme_app.dart';
-import 'package:test_app/shared/theme/custom_theme.dart';
-import 'package:test_app/features/main/screen/s_main.dart';
+// lib/app.dart
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
+import 'features/home/screen/s_home.dart';
 
-
-class App extends StatefulWidget {
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
-
-  ///light, dark 테마가 준비되었고, 시스템 테마를 따라가게 하려면 해당 필드를 제거.
-  static const defaultTheme = CustomTheme.light;
-  static bool isForeground = true;
-
-  const App({super.key});
-
-  @override
-  State<App> createState() => AppState();
-}
-
-class AppState extends State<App> with Nav, WidgetsBindingObserver {
-  @override
-  GlobalKey<NavigatorState> get navigatorKey => App.navigatorKey;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
+class KioskApp extends StatelessWidget {
+  const KioskApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return CustomThemeApp(
-      child: Builder(builder: (context) {
-        return MaterialApp(
-          navigatorKey: App.navigatorKey,
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          title: 'Image Finder',
-          theme: context.themeType.themeData,
-          home: const MainScreen(),
-        );
-      }),
-    );
-  }
+    return MaterialApp(
+      // 런타임에 다국어로 앱 타이틀 갱신
+      onGenerateTitle: (_) => 'app.title'.tr(),
+      debugShowCheckedModeBanner: false,
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        App.isForeground = true;
-        break;
-      case AppLifecycleState.inactive:
-        break;
-      case AppLifecycleState.paused:
-        App.isForeground = false;
-        break;
-      case AppLifecycleState.detached:
-        break;
-      case AppLifecycleState.hidden: //Flutter 3.13 이하 버전을 쓰신다면 해당 라인을 삭제.
-        break;
-    }
-    super.didChangeAppLifecycleState(state);
+      // === i18n 연결 (main.dart에서 EasyLocalization로 감싼 상태) ===
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
+
+      // === 테마 ===
+      theme: _lightTheme,
+      darkTheme: _darkTheme,
+      themeMode: ThemeMode.light, // 교실 환경이면 보통 Light 권장
+
+      // 스크롤 글로우 제거(키오스크 느낌)
+      scrollBehavior: const _NoGlowScrollBehavior(),
+
+      home: const HomeScreen(),
+    );
   }
 }
 
+// -------------------- THEME --------------------
+final _lightTheme = ThemeData(
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+  visualDensity: VisualDensity.comfortable,
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(fontSize: 42, fontWeight: FontWeight.w800),
+    headlineMedium: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
+    bodyLarge: TextStyle(fontSize: 20),
+  ),
+  appBarTheme: const AppBarTheme(
+    centerTitle: true,
+    titleTextStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+  ),
+);
 
-// App.navigatorKey를 제공하고 with Nav 믹스인으로 네비 유틸 사용.
-// CustomThemeApp으로 감싸서 테마 확장을 context에서 쓸 수 있게 함.
-//
-// MaterialApp 속성:
-// - navigatorKey: 전역 네비게이터 접근
-// - localizationsDelegates/supportedLocales/locale: EasyLocalization 연동
-// - theme: context.themeType.themeData(커스텀 테마)
-// - home: MainScreen
-//
-// 앱 생명주기에서 App.isForeground 업데이트.
+final _darkTheme = ThemeData.dark(useMaterial3: true).copyWith(
+  colorScheme: ColorScheme.fromSeed(
+    seedColor: Colors.indigo,
+    brightness: Brightness.dark,
+  ),
+  textTheme: const TextTheme(
+    displayLarge: TextStyle(fontSize: 42, fontWeight: FontWeight.w800),
+    headlineMedium: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
+    bodyLarge: TextStyle(fontSize: 20),
+  ),
+);
+
+// -------------------- UTILS --------------------
+class _NoGlowScrollBehavior extends ScrollBehavior {
+  const _NoGlowScrollBehavior();
+  @override
+  Widget buildOverscrollIndicator(
+      BuildContext context,
+      Widget child,
+      ScrollableDetails details,
+      ) {
+    return child; // 글로우 제거
+  }
+}

@@ -34,6 +34,10 @@ dependencies:
   #splash creator
   flutter_native_splash: ^2.3.0
 
+  # kiosk setting
+  wakelock_plus: ^1.2.6       # 화면 항상 켜기
+  mobile_scanner: ^6.0.2      # QR/바코드 스캐너
+
   # camera & audio
   camera: ^0.11.0          # 카메라 미리보기/동영상 녹화
   video_player: ^2.9.0     # 동영상 재생

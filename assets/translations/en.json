@@ -1,16 +1,16 @@
 {
-  "title": {
-    "home": "Home",
-    "new_screen" : "new Screen",
-    "recoder" : "Recoder Test Screen",
-    "base_text": "baseText Example",
-    "sample_dialogs": "Sample Dialogs"
+  "app" : {
+    "title":"kiosk"
   },
-  "desc": {
-
+  "home": {
+    "title":"Home"
   },
-  "refresh": "Refresh",
-  "close": "Close",
-  "done": "Done",
-  "cancel": "Cancel"
+  "check_in": {
+    "title": "Check In"
+  },
+  "common": {
+    "close": "Close",
+    "done": "Done",
+    "cancel": "Cancel"
+  }
 }

@@ -1,30 +1,32 @@
-import 'dart:io';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:media_store_plus/media_store_plus.dart';
+import 'package:flutter/services.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 import 'app.dart';
-import 'core/data/preference/app_preferences.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await AppPreferences.init();
 
-  if (Platform.isAndroid) {
-    await MediaStore.ensureInitialized();
-    MediaStore.appFolder = "MyApp"; // 갤러리 가상 폴더명
-  }
+  // 시스템 UI 최소화(키오스크 몰입)
+  await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
 
-  runApp(EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ko')],
-      fallbackLocale: const Locale('en'),
+  // 세로고정 변경 가능
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp, // 기본 세로
+    // DeviceOrientation.portraitDown, // 180도도 허용하려면 이 줄 추가
+  ]);
+
+  // 화면 꺼짐 방지
+  await WakelockPlus.enable();
+
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [Locale('ko'), Locale('en')],
       path: 'assets/translations',
-      useOnlyLangCode: true,
-      child: const App()));
+      fallbackLocale: const Locale('ko'),
+      child: const KioskApp(), // ← MaterialApp은 app.dart에서
+    ),
+  );
 }
-
-
-/// EasyLocalization로 감싼 뒤 App 실행.
-/// supportedLocales: [en, ko], fallback: en, path: assets/translations(키 기반 번역 파일 경로).

@@ -1,16 +1,16 @@
 {
-  "title" : {
-    "home": "홈",
-    "new_screen" : "새로운 페이지",
-    "recoder" : "촬영/녹음 테스트 페이지",
-    "base_text": "텍스트 위젯 예시",
-    "sample_dialogs": "다이얼 로그 샘플"
+  "app" : {
+    "title":"키오스크"
   },
-  "desc": {
-
+  "home": {
+    "title":"홈"
   },
-  "refresh": "새로고침",
-  "close": "닫기",
-  "done": "완료",
-  "cancel": "취소"
+  "check_in": {
+    "title": "출석 체크"
+  },
+  "common": {
+    "close": "닫기",
+    "done": "완료",
+    "cancel": "취소"
+  }
 }
