@@ -120,6 +120,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: 340,
                 child: BaseButton(
                   label: _loading ? '처리 중…' : '로딩 버튼 테스트',
+                  labelIsKey: false,
                   variant: BaseBtnVariant.filled,
                   size: BaseBtnSize.lg,
                   loading: _loading,
@@ -153,6 +154,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: 220,
                 child: BaseButton(
                   label: 'd_infoDialog',
+                  labelIsKey: false,
                   variant: BaseBtnVariant.filled,
                   onPressed: () => InfoDialog.show(
                     context,
@@ -170,6 +172,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: 220,
                 child: BaseButton(
                   label: 'd_confirmDialog',
+                  labelIsKey: false,
                   variant: BaseBtnVariant.filled,
                   onPressed: () async {
                     final ok = await ConfirmDialog.confirm(
@@ -191,6 +194,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: 220,
                 child: BaseButton(
                   label: 'd_confirmDialog-error',
+                  labelIsKey: false,
                   variant: BaseBtnVariant.tonal,
                   onPressed: () async {
                     final ok = await ConfirmDialog.delete(
@@ -212,6 +216,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: 220,
                 child: BaseButton(
                   label: 'd_text_field_dialog',
+                  labelIsKey: false,
                   variant: BaseBtnVariant.outlined,
                   onPressed: () async {
 
@@ -246,6 +251,7 @@ class _HomeFragmentState extends State<HomeFragment> {
                 width: 220,
                 child: BaseButton(
                   label: 'Custom BaseDialog',
+                  labelIsKey: false,
                   variant: BaseBtnVariant.outlined,
                   onPressed: () => showDialog<void>(
                     context: context,
