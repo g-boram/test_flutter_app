@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:test_app/shared/widgets/dialogs/d_baseDialog.dart';
-import 'package:test_app/shared/widgets/dialogs/d_infoDialog.dart';
+import 'package:test_app/shared/widgets/dialogs/d_base_dialog.dart';
+import 'package:test_app/shared/widgets/dialogs/d_info_dialog.dart';
 import 'package:test_app/shared/widgets/text/w_base_text.dart';
 
 import 'package:test_app/core/common.dart';
 
-// 기능 이동 (출석)
 import '../../attendance/screen/s_checkin.dart';
 
 
@@ -29,7 +28,6 @@ class _HomeFragmentState extends State<HomeFragment> {
     return ListView(
       children: [
         // 1) 기능 카드 (CardButton) + 파일 경로
-        const _SectionTitle(title: '기능 카드 (CardButton)'),
         GridView.count(
           crossAxisCount: 3,
           crossAxisSpacing: 24,
@@ -39,7 +37,8 @@ class _HomeFragmentState extends State<HomeFragment> {
           children: [
             ExampleTile(
               title: '출석 체크',
-              filePath: 'lib/shared/widgets/buttons/w_cardButton.dart',
+              filePath: 'lib/shared/widgets/buttons/w_card_button.dart',
+              showFileHints: showFileHints,
               child: CardButton(
                 icon: Icons.qr_code_scanner,
                 label: 'home.attendance'.tr(),
@@ -48,43 +47,26 @@ class _HomeFragmentState extends State<HomeFragment> {
                   MaterialPageRoute(builder: (_) => const CheckinScreen()),
                 ),
               ),
-              showFileHints: showFileHints,
             ),
             ExampleTile(
               title: '공지(Info Dialog)',
               filePath: 'lib/shared/widgets/dialogs/w_infoDialog.dart',
+              showFileHints: showFileHints,
               child: CardButton(
                 icon: Icons.campaign,
                 label: 'home.notice'.tr(),
-                onTap: () => showInfoDialog(
-                  context,
-                  title: '공지',
-                  message: '공지 기능은 다음 단계에서 연결할 예정입니다.',
-                ),
+                  onTap: (){}
               ),
-              showFileHints: showFileHints,
             ),
             ExampleTile(
               title: '도움말(Confirm Dialog)',
               filePath: 'lib/shared/widgets/dialogs/w_confirmDialog.dart',
+              showFileHints: showFileHints,
               child: CardButton(
                 icon: Icons.help_outline,
                 label: 'home.help'.tr(),
-                onTap: () async {
-                  final ok = await showConfirmDialog(
-                    context,
-                    title: '도움말',
-                    message: '출석은 QR 스캔 또는 학번 입력으로 진행합니다.\n이 안내를 더 이상 보지 않을까요?',
-                    confirmText: '예',
-                    cancelText: '아니오',
-                  );
-                  if (!mounted) return;
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(ok == true ? '다음부터 도움말 숨김' : '유지합니다')),
-                  );
-                },
+                  onTap: (){}
               ),
-              showFileHints: showFileHints,
             ),
           ],
         ),
@@ -98,59 +80,25 @@ class _HomeFragmentState extends State<HomeFragment> {
           spacing: 12,
           runSpacing: 12,
           children: [
-            ExampleInline(
-              filePath: 'lib/shared/widgets/buttons/w_baseButton.dart',
-              showFileHints: showFileHints,
-              child: SizedBox(
-                width: 220,
-                child: BaseButton(
-                  label: 'Filled',
-                  variant: BaseBtnVariant.filled,
-                  size: BaseBtnSize.md,
-                  leadingIcon: Icons.check_circle,
-                  onPressed: () => _toast(context, 'Filled tapped'),
-                ),
-              ),
-            ),
-            ExampleInline(
-              filePath: 'lib/shared/widgets/buttons/w_baseButton.dart',
-              showFileHints: showFileHints,
-              child: SizedBox(
-                width: 220,
-                child: BaseButton(
-                  label: 'Tonal',
-                  variant: BaseBtnVariant.tonal,
-                  size: BaseBtnSize.md,
-                  trailingIcon: Icons.arrow_forward,
-                  onPressed: () => _toast(context, 'Tonal tapped'),
-                ),
-              ),
-            ),
-            ExampleInline(
-              filePath: 'lib/shared/widgets/buttons/w_baseButton.dart',
-              showFileHints: showFileHints,
-              child: SizedBox(
-                width: 220,
-                child: BaseButton(
-                  label: 'Outlined',
-                  variant: BaseBtnVariant.outlined,
-                  size: BaseBtnSize.md,
-                  onPressed: () => _toast(context, 'Outlined tapped'),
-                ),
-              ),
-            ),
-            ExampleInline(
-              filePath: 'lib/shared/widgets/buttons/w_baseButton.dart',
-              showFileHints: showFileHints,
-              child: SizedBox(
-                width: 220,
-                child: BaseButton(
-                  label: 'Text',
-                  variant: BaseBtnVariant.text,
-                  size: BaseBtnSize.md,
-                  onPressed: () => _toast(context, 'Text tapped'),
-                ),
-              ),
+
+            // 기본(브랜드 색)
+            BaseButton(label: 'common.save', onPressed: (){}),
+
+            // Tonal
+            BaseButton(label: 'common.done', variant: BaseBtnVariant.tonal, onPressed: (){}),
+
+            // Outlined
+            BaseButton(label: 'common.cancel', variant: BaseBtnVariant.outlined, onPressed: (){}),
+
+            // Text
+            BaseButton(label: 'common.ok', variant: BaseBtnVariant.text, onPressed: (){}),
+
+            // 파괴적(삭제 등) — 색 자동 전환
+            BaseButton(
+              label: 'common.delete',
+              variant: BaseBtnVariant.filled, // 또는 tonal/outlined/text
+              destructive: true,
+              onPressed: (){}
             ),
           ],
         ),
@@ -164,28 +112,30 @@ class _HomeFragmentState extends State<HomeFragment> {
             ),
             const SizedBox(width: 8),
             const Text('Loading 토글'),
+            const SizedBox(width: 50),
+            ExampleInline(
+              filePath: 'lib/shared/widgets/buttons/w_base_button.dart',
+              showFileHints: showFileHints,
+              child: SizedBox(
+                width: 340,
+                child: BaseButton(
+                  label: _loading ? '처리 중…' : '로딩 버튼 테스트',
+                  variant: BaseBtnVariant.filled,
+                  size: BaseBtnSize.lg,
+                  loading: _loading,
+                  onPressed: () async {
+                    setState(() => _loading = true);
+                    await Future.delayed(const Duration(seconds: 1));
+                    if (!mounted) return;
+                    setState(() => _loading = false);
+                    _toast(context, '완료!');
+                  },
+                ),
+              ),
+            ),
           ],
         ),
-        ExampleInline(
-          filePath: 'lib/shared/widgets/buttons/w_baseButton.dart',
-          showFileHints: showFileHints,
-          child: SizedBox(
-            width: 340,
-            child: BaseButton(
-              label: _loading ? '처리 중…' : '로딩 버튼 테스트',
-              variant: BaseBtnVariant.filled,
-              size: BaseBtnSize.lg,
-              loading: _loading,
-              onPressed: () async {
-                setState(() => _loading = true);
-                await Future.delayed(const Duration(seconds: 1));
-                if (!mounted) return;
-                setState(() => _loading = false);
-                _toast(context, '완료!');
-              },
-            ),
-          ),
-        ),
+
 
         const SizedBox(height: 24),
         const Divider(height: 1),
@@ -197,35 +147,35 @@ class _HomeFragmentState extends State<HomeFragment> {
           runSpacing: 12,
           children: [
             ExampleInline(
-              filePath: 'lib/shared/widgets/dialogs/w_infoDialog.dart',
+              filePath: 'lib/shared/widgets/dialogs/d_infoDialog.dart',
               showFileHints: showFileHints,
               child: SizedBox(
                 width: 220,
                 child: BaseButton(
-                  label: 'showInfoDialog',
+                  label: 'd_infoDialog',
                   variant: BaseBtnVariant.filled,
                   onPressed: () => InfoDialog.show(
                     context,
-                    title: '안내',
-                    message: '이것은 공통 Info 다이얼로그입니다.',
+                    title: 'test',
+                    message: 'test',
                   ),
                 ),
               ),
             ),
+
             ExampleInline(
-              filePath: 'lib/shared/widgets/dialogs/w_confirmDialog.dart',
+              filePath: 'lib/shared/widgets/dialogs/d_confirmDialog.dart',
               showFileHints: showFileHints,
               child: SizedBox(
                 width: 220,
                 child: BaseButton(
-                  label: 'showConfirmDialog',
-                  variant: BaseBtnVariant.tonal,
+                  label: 'd_confirmDialog',
+                  variant: BaseBtnVariant.filled,
                   onPressed: () async {
-                    final ok = await showConfirmDialog(
+                    final ok = await ConfirmDialog.confirm(
                       context,
-                      title: '확인',
-                      message: '이 작업을 진행할까요?',
-                      confirmText: '성공하였습니다.',
+                      title: 'test',
+                      message: 'test',
                     );
                     if (!mounted) return;
                     _toast(context, ok == true ? '진행' : '취소');
@@ -233,6 +183,62 @@ class _HomeFragmentState extends State<HomeFragment> {
                 ),
               ),
             ),
+
+            ExampleInline(
+              filePath: 'lib/shared/widgets/dialogs/d_confirmDialog.dart',
+              showFileHints: showFileHints,
+              child: SizedBox(
+                width: 220,
+                child: BaseButton(
+                  label: 'd_confirmDialog-error',
+                  variant: BaseBtnVariant.tonal,
+                  onPressed: () async {
+                    final ok = await ConfirmDialog.delete(
+                      context,
+                      title: 'test',
+                      message: 'test',
+                    );
+                    if (!mounted) return;
+                    _toast(context, ok == true ? '진행' : '취소');
+                  },
+                ),
+              ),
+            ),
+
+            ExampleInline(
+              filePath: 'lib/shared/widgets/dialogs/d_text_field_dialog.dart',
+              showFileHints: showFileHints,
+              child: SizedBox(
+                width: 220,
+                child: BaseButton(
+                  label: 'd_text_field_dialog',
+                  variant: BaseBtnVariant.outlined,
+                  onPressed: () async {
+
+                    // 2) 한 줄 입력 (Enter=완료)
+                    // final name = await InputDialog.prompt(
+                    //   context,
+                    //   title: 'dialog.name.title',
+                    //   message: 'dialog.name.desc',
+                    //   hintText: 'dialog.name.hint',
+                    //   required: true,
+                    // );
+
+                    // 3) 여러 줄 입력 (Enter=줄바꿈)
+                    final memo = await InputDialog.prompt(
+                      context,
+                      title: 'dialog.memo.title',
+                      message: 'dialog.memo.desc',
+                      hintText: 'dialog.memo.hint',
+                      maxLines: 4,
+                      confirmText: 'common.save',
+                      cancelText: 'common.close',
+                    );
+                  },
+                ),
+              ),
+            ),
+
             ExampleInline(
               filePath: 'lib/shared/widgets/dialogs/w_baseDialog.dart',
               showFileHints: showFileHints,
@@ -258,20 +264,20 @@ class _HomeFragmentState extends State<HomeFragment> {
                               maxLines: 3,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: '예) 교실 비품 점검 완료',
+                                hintText: '예) 점검 완료',
                               ),
                             ),
                           ],
                         ),
                         actions: [
                           BaseButton(
-                            label: '닫기',
+                            label: 'common.close',
                             variant: BaseBtnVariant.outlined,
                             size: BaseBtnSize.sm,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
                           BaseButton(
-                            label: '저장',
+                            label: 'common.save',
                             variant: BaseBtnVariant.filled,
                             size: BaseBtnSize.sm,
                             onPressed: () {

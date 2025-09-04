@@ -12,8 +12,12 @@
     "title": "출석 체크"
   },
   "common": {
+    "ok": "확인",
     "close": "닫기",
     "done": "완료",
-    "cancel": "취소"
-  }
+    "cancel": "취소",
+    "save": "저장",
+    "delete": "삭제"
+  },
+  "test": "다국어 테스트"
 }

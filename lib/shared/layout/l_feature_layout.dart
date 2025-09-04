@@ -6,13 +6,13 @@ class FeatureLayout extends StatelessWidget {
   final String titleKey;                 // i18n key 또는 평문
   final Widget child;                    // 본문
   final String? bottomDescKey;           // 하단 설명(옵션)
-  final EdgeInsetsGeometry padding;
+  final EdgeInsetsGeometry padding;      // 패딩
   final List<Widget>? actions;           // 우측 상단 액션(옵션)
   final bool? showBackButton;            // null=자동(Navigator.canPop), true/false로 강제 가능
   final VoidCallback? onBack;            // 커스텀 뒤로가기 핸들러(옵션)
   final PreferredSizeWidget? bottom;     // (옵션) TabBar 등 AppBar bottom에 꽂기
-  final bool showLocaleToggle;        // 기본 true
-  final List<Locale>? localeList;     // 특정 순서/언어 제한 시
+  final bool showLocaleToggle;           // 기본 true
+  final List<Locale>? localeList;        // 특정 순서/언어 제한 시
 
   const FeatureLayout({
     super.key,

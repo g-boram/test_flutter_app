@@ -12,8 +12,12 @@
     "title": "Check In"
   },
   "common": {
+    "ok": "OK",
     "close": "Close",
     "done": "Done",
-    "cancel": "Cancel"
-  }
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete"
+  },
+  "test": "Localization Test"
 }
